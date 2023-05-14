@@ -212,7 +212,7 @@ public class clientController {
         if(session!=null) {
             session.invalidate();
         }
-        return "login.html";
+        return "redirect:/gotoLogin";
     }
 
 
