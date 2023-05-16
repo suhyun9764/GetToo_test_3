@@ -2,6 +2,7 @@ package Group2.capstone_project.filter;
 
 import Group2.capstone_project.session.SessionConst;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.util.PatternMatchUtils;
 
 import javax.servlet.*;
@@ -13,7 +14,8 @@ import java.io.IOException;
 @Slf4j
 public class loginCheckFilter implements Filter {
 
-    private static final String[] whiteList = {"/loginClient/*","/board/*"};
+
+    private static final String[] blackList = {"/loginClient/*","/board/*"};
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -30,7 +32,7 @@ public class loginCheckFilter implements Filter {
                 if(session ==null||session.getAttribute(SessionConst.LOGIN_CLIENT)==null){
                  //   log.info("미인증 사용자 요청{}",requestURI);
                     //로그인으로 redirect
-                    httpResponse.sendRedirect("/gotoLogin?redirectURL="+requestURI);
+                    httpResponse.sendRedirect("/redirectLogin?redirectURL="+requestURI);
                     return;
                 }
             }
@@ -44,6 +46,6 @@ public class loginCheckFilter implements Filter {
 
 
     private boolean isLoginCheckPath(String requestURI){
-        return PatternMatchUtils.simpleMatch(whiteList,requestURI);
+        return PatternMatchUtils.simpleMatch(blackList,requestURI);
     }
 }

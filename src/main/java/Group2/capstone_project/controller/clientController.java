@@ -38,11 +38,11 @@ public class clientController {
         HttpSession session = request.getSession(false);
         System.out.println("call");
         if(session == null){
-            return "/index.html";
+            return "index.html";
         }
         Client client = (Client) session.getAttribute(SessionConst.LOGIN_CLIENT);
         if(client==null)
-            return "/index.html";
+            return "index.html";
 
         System.out.println("모델:"+client.getName());
         model.addAttribute("name", client.getName());
@@ -61,8 +61,11 @@ public class clientController {
         model.addAttribute("errorMessage", "권한이 없습니다");
         System.out.println("모델:"+client.getName());
         model.addAttribute("name", client.getName());
-        return "loginClient/login_index.html";
+        return "/loginClient/login_index.html";
     }
+
+
+
 
     @GetMapping("/gotoJoin")
     public String joinForm(){
@@ -221,6 +224,13 @@ public class clientController {
 
     public String boardHome(){
         return "/board/home";
+    }
+
+
+    @GetMapping("/redirectLogin")
+    public String redirectLogin(Model model){
+        model.addAttribute("errorMessage","로그인 후 이용해주세요");
+        return "login.html";
     }
 
     @GetMapping("loginClient/writeBoard")
