@@ -48,7 +48,7 @@ public class clientController {
         model.addAttribute("name", client.getName());
         return "loginClient/login_index.html";
     }
-    @GetMapping("/index.html")
+    @GetMapping("/index")
     public String Home2(HttpServletRequest request, Model model){
         HttpSession session = request.getSession(false);
 
@@ -250,7 +250,7 @@ public class clientController {
             Client chkClient = clientserivce.findById(client.getId());
             if (chkClient == null || !"YES".equals(chkClient.getLeader())) {
 
-                return "redirect:/index.html";
+                return "redirect:/index";
         }
 
         return "loginClient/createclubBoard_1.html";
